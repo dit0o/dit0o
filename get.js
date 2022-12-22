@@ -1,0 +1,15 @@
+var itemList=document.querySelector('#item');
+console.log(itemList.parentElement);
+console.log(itemList.parentElement.parentElement);
+console.log(itemList.children);
+console.log(itemList.firstElementChild);
+console.log(itemList.lastElementChild);
+console.log(itemList.previousElementSibling);
+var newDiv=document.createElement('div');
+newDiv.className='hello';
+newDiv.id='hello';
+var newDivText=document.createTextNode('hello');
+var container=document.querySelector('header-container');
+var h1=document.querySelector('header h1');
+console.log(newDiv);
+container.insertBefore(newDiv,h1);

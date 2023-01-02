@@ -10,13 +10,20 @@
 <body>
   <header id="main-header" class="bg-success text-white p-4 mb-3">
     <div class="container">
-      <h1 id="header-title">Item Lister <span style="display:none">123</span></h1>
+      <div class="row">
+        <div class="col-md-6">
+            <h1 id="header-title">Item Lister</h1>
+        </div>
+        <div class="col-md-6 align-self-center">
+            <input type="text" class="form-control" id="filter" placeholder="Search Items...">
+        </div>
+      </div>
     </div>
   </header>
   <div class="container">
    <div id="main" class="card card-body">
     <h2 class="title">Add Items</h2>
-    <form class="form-inline mb-3">
+    <form  id="addform" class="form-inline mb-3">
       <input type="text" class="form-control mr-2">
       <input type="submit" class="btn btn-dark" value="Submit">
     </form>
@@ -29,7 +36,7 @@
     </ul>
    </div>
   </div>
-  <script>src="get.js"</script>
+  <script> src="get.js"</script>
 
 </body>
 </html>

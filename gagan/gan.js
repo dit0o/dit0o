@@ -7,9 +7,16 @@ form.addEventListener('submit', function (event) {
          categeory:document.getElementById('list').value
         }
        
-
-       console.log(user.Expenseamount,JSON.stringify(user));        
-       showUsersOnScreen(user)
+          axios.post("https://crudcrud.com/api/f975c3d719644018a37266d0142c890c/appi",user)
+          .then((response)=>{
+            showUsersOnScreen(response.data)
+            console.log(response);
+          })
+          .catch((error)=>{
+            console.log(error);
+          })
+      // console.log(user.Expenseamount,JSON.stringify(user));        
+       //showUsersOnScreen(user)
         
         
         
@@ -43,7 +50,7 @@ form.addEventListener('submit', function (event) {
             const parentNode=document.getElementById('listofUsers');
             const childNodeToBeDeleted=document.getElementById('listItem');
             if(childNodeToBeDeleted){
-                parentNode.removeChildNode(childNodeToBeDeleted);
+                parentNode.removeChildNode(parentNode.removeChildNode-childNodeToBeDeleted);
             }
            
         }

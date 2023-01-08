@@ -15,10 +15,23 @@ form.addEventListener('submit', function (event) {
           .catch((error)=>{
             console.log(error);
           })
+        
       // console.log(user.Expenseamount,JSON.stringify(user));        
        //showUsersOnScreen(user)
+       window.addEventListener("DOMContentLoaded",()=>{
+       axios.get("https://crudcrud.com/api/f975c3d719644018a37266d0142c890c/appi")
+       .then((response)=>{
+        console.log(response)
+        for(var i=0; i<response.data.length; i++)
+        {
+            showUsersOnScreen(response.data[i])
+        }
+       })
+       .catch((error)=>{
+        console.log(error);
+      })
         
-        
+    })
         
     
         })
@@ -27,30 +40,45 @@ form.addEventListener('submit', function (event) {
           document.getElementById('discription').value="";
           document.getElementById('list').value="";
            var parentNode=document.getElementById('listOfUsers');
-           var childNode=`<li id=${user.Expenseamount}>${user.Expenseamount}-${user.discription}-${user.categeory}
-           <button onclick=editUserDetails('${user.Expenseamount}','${user.discription}','${user.categeory}')>Edit User</button>
-           <button onclick=DeleteUserDetails('${user.Expenseamount}')>Delete User</li>`
+           var childNode=`<li id=${user._id}>${user.Expenseamount}-${user.discription}-${user.categeory}
+           <button onclick=editUserDetails('${user.Expenseamount},'${user.discription}','${user.categeory}','${user._id}')>Edit User</button>
+           <button onclick=DeleteUser('${user._id}')>Delete User</li>`
            parentNode.innerHTML=parentNode.innerHTML+childNode;
 
         }
-        function editUserDetails(Expenseamount,discription,categeory){
+        function editUserDetails(Expenseamount,discription,categeory,userId){
             document.getElementById('Expense').value=Expenseamount;
             document.getElementById('discription').value=discription;
             document.getElementById('list').value=categeory;
-             DeleteUserDetails(Expenseamount);  
+            axios.put("https://crudcrud.com/api/f975c3d719644018a37266d0142c890c/appi")
+          .then((response)=>{
+            editUserDetails(response.data)
+            console.log(response);
+          })
+          .catch((error)=>{
+            console.log(error);
+          })
+             DeleteUser(userId);  
 
         }
-        function DeleteUserDetails(Expenseamount){
-            console.log(Expenseamount);
-            removeUserFromScreen(Expenseamount);
+        function DeleteUser(userId){
+            axios.delete(`https://crudcrud.com/api/f975c3d719644018a37266d0142c890c/appi/${userId}`)
+            .then((response)=>{
+                removeUserFromScreen(userId);
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+            //console.log(Expenseamount);
+            //removeUserFromScreen(Expenseamount);
 
         }
         
-        function removeUserFromScreen(Expenseamount){
+        function removeUserFromScreen(userId){
             const parentNode=document.getElementById('listofUsers');
-            const childNodeToBeDeleted=document.getElementById('listItem');
+            const childNodeToBeDeleted=document.getElementById(userId);
             if(childNodeToBeDeleted){
-                parentNode.removeChildNode(parentNode.removeChildNode-childNodeToBeDeleted);
+                parentNode.removeChild(childNodeToBeDeleted);
             }
            
         }

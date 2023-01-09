@@ -52,10 +52,10 @@ form.addEventListener('submit', function (event) {
         axios.put("https://crudcrud.com/api/53bcdb8ad4c2479199d03884b744092a/appa")
         .then((response)=>{
           editUserDetails(response.data)
-          console.log(response);
+          console.log(response)
         })
         .catch((error)=>{
-          console.log(error);
+          console.log(error)
         })
         function editUserDetails(Expenseamount,discription,categeory,userId){
          
@@ -63,7 +63,7 @@ form.addEventListener('submit', function (event) {
           document.getElementById('Expense').value=Expenseamount;
           document.getElementById('discription').value=discription;
           document.getElementById('list').value=categeory;
-           
+          DeleteUser(userId)
 
       }
       function DeleteUser(userId){
@@ -71,6 +71,8 @@ form.addEventListener('submit', function (event) {
         axios.delete(`https://crudcrud.com/api/53bcdb8ad4c2479199d03884b744092a/appa/${userId}`)
       .then((response)=>{
           removeUserFromScreen(userId);
+          console.log(response)
+        
       })
       .catch((error)=>{
           console.log(error);

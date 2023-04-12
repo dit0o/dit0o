@@ -9,36 +9,25 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-  <body style="background-color:aquamarine;">
+  <body style="background-color:lightblue">
   <div class="container">
-     
-     <h1 style="font-size: xx-large;"style="align-self-center";><b>Expense traker</b></h1>
-     
-    <form onSubmit='formsubmit(event)'>
-        <label class="form labor"><b>Expenseamount</b> </label>
-        <input class="form control" id='Expense' type="number" name="Expense"  required/>
-        <label><b> discription </b> </label>
-        <input id='discription' type="text" name="discription"  required/>
-        <label><b>categeory </b> </label>
-        <input list="browsers" id="list" name="list">
-  <datalist id="browsers" name="browsers">
-    <option value="movies">
-    <option value="cricket">
-    <option value="sea">
-    <option value="hotel">
-    <option value="fuel">
-  </datalist>
-    <button type="submit"><b>addexpense</b> </button>
+  
+     <form onSubmit='formsubmit(event)'>
+        <label class="form labor"><b>Name:</b> </label>
+        <input class="form control" id='name' type="text" name="name"  required/>
+        <label><b>E-mail: </b> </label>
+        <input id='mail' type="email" name="mail"  required/>
+        <label><b>Password: </b> </label>
+        <input id='pass' type="password" name="pass"  required/>
+    <button type="submit"><b>signup</b> </button>
     </form>
         
   
      
     </form>
-    <ul id='listOfUsers' class="list-groups"> 
-    
-  </ul>
+    <a href="../login/login.html">Existing user-login</a>
 </div>
-    
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
     <script src="gan.js">
     

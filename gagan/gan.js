@@ -17,8 +17,8 @@
     
     
   } catch (error) {
-    
+    document.body.innerHTML+= `<div style="color:red;">${error}<div>`    
   }
-  document.body.innerHTML+= `<div style="red;">${error}<div>`    
+ 
  
 }

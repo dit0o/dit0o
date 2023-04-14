@@ -1,83 +1,24 @@
-window.addEventListener("DOMContentLoaded", () => {
-  axios.get("https://crudcrud.com/api/dce2326670654fc48cbb013c2955efb7/gun")
-    .then((response) => {
-      console.log(response)
-      for (var i = 0; i < response.data.length; i++) {
-        showUsersOnScreen(response.data[i])
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  })
-  
-  function formsubmit(event){
-
-  
+ async function formsubmit(event){
+  try {
     event.preventDefault();
-    var user = {
-      Expenseamount: document.getElementById('Expense').value,
-      discription: document.getElementById('discription').value,
-      categeory: document.getElementById('list').value
+    var user= {
+      Name:document.getElementById('name').value,
+      Email:document.getElementById('mail').value,
+      Password:document.getElementById('pass').value
     }
-
-    axios.post("https://crudcrud.com/api/dce2326670654fc48cbb013c2955efb7/gun", user)
-      
-        showUsersOnScreen(user)
-  }
-
-
-
-function DeleteUser(userId){
-
-
-  axios.delete(`https://crudcrud.com/api/dce2326670654fc48cbb013c2955efb7/gun/${userId}`)
+    const response= await axios.post("http://localhost:3000/user/post", user)
     
-      
-      removeFromScreen(userId)
-      
+      if(response.status===201){
+        window.location.href="./login/login.html"
+      }
+      else{
+        throw new Error('Failed to login')
+      }
     
     
+  } catch (error) {
     
   }
-
-
-
-function removeFromScreen(userId) {
-  var parentNode = document.getElementById('listOfUsers');
-  var childNodeToBeDeleted = document.getElementById(userId);
-
-  parentNode.removeChild(childNodeToBeDeleted);
-
-
+  document.body.innerHTML+= `<div style="red;">${error}<div>`    
+ 
 }
-
-
-
-
-
-function editUserDetails(Expenseamount, discription, categeory, userId) {
-
-
-  document.getElementById('Expense').value = Expenseamount;
-  document.getElementById('discription').value = discription;
-  document.getElementById('list').value = categeory;
-  DeleteUser(userId)
-
-}
-
-
-
-function showUsersOnScreen(user) {
-
-  var parentNode = document.getElementById('listOfUsers');
-  var childNode = `<li id=${user._id}>${user.Expenseamount}-${user.discription}-${user.categeory}
-       <button id="edit" onclick=editUserDetails('${user.Expenseamount}','${user.discription}','${user.categeory}','${user._id}')>Edit User</button>
-       <button id='${user._id}' onclick=DeleteUser('${user._id}')>Delete User</button></li>`
-  parentNode.innerHTML = parentNode.innerHTML + childNode;
-
-}
-
-
-
-

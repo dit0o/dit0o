@@ -9,6 +9,8 @@ async function formsubmit(event){
       
         if(response.status===201){
          alert(response.data.message)
+         localStorage.setItem('token',response.data.token)
+         window.location.href="../daily/expense.html"
         }
         else{
           throw new Error(response.data.message)

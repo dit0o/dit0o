@@ -1,6 +1,6 @@
 window.addEventListener("DOMContentLoaded", async() => {try{
-
-    await axios.get("http://localhost:3000/expense/get")
+  const token=localStorage.getItem('token')
+    await axios.get("http://localhost:3000/expense/get",{headers:{'Authorization':token}})
       .then((response) => {
         console.log(response)
         for (var i = 0; i < response.data.allExp.length; i++) {
@@ -25,9 +25,11 @@ async function formsubmit(event){
        var expense={
         Expenseamount: document.getElementById('Expense').value,
         discription: document.getElementById('discription').value,
-        categeory: document.getElementById('list').value
+        categeory: document.getElementById('list').value,
+        
        }
-       await axios.post("http://localhost:3000/expense/post", expense)
+       const token=localStorage.getItem('token')
+       await axios.post("http://localhost:3000/expense/post", expense,{headers:{'Authorization':token}})
        .then((response) => {
          console.log(response)
    
@@ -43,7 +45,8 @@ async function formsubmit(event){
 }
 async function DeleteExp(expenseid) {
     try {
-      await axios.delete(`http://localhost:3000/expense/deleteexp/${expenseid}`)
+      const token=localStorage.getItem('token')
+      await axios.delete(`http://localhost:3000/expense/deleteexp/${expenseid}`,{headers:{'Authorization':token}})
       .then((response) => {
         console.log(response)
   

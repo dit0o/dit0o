@@ -134,11 +134,11 @@ function Showleaderbord(){
   inputElement.value="SHOW";
   inputElement.onclick=async()=>{
     const token=localStorage.getItem('token')
-    const userLeaderBoard=await axios.get("http://localhost:3000/premium/member",{headers:{'Authorization':token}})
+    const userLeaderBoard=await axios.get("http://localhost:3000/premium/showfeatures",{headers:{'Authorization':token}})
     const LeaderBord=document.getElementById('leadboard')
     LeaderBord.innerHTML +='<h1> Leader Board</h1>'
     userLeaderBoard.data.forEach((userDetailes)=>{
-      LeaderBord.innerHTML +=`<li>Name-${userDetailes.name} Total Expense-${userDetailes.total_cost }</li>`
+      LeaderBord.innerHTML +=`<li>Name-${user.Name} Total Expense-${user.totalExpense }</li>`
     })
   }
   document.getElementById('message').appendChild(inputElement);

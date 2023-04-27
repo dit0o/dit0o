@@ -5,7 +5,7 @@ async function formsubmit(event){
         Email:document.getElementById('mail').value,
         Password:document.getElementById('pass').value
       }
-      const response= await axios.post("http://localhost:3000/user/login", login)
+      const response= await axios.post("http://localhost:3000/user/login",login)
       
         if(response.status===201){
          alert(response.data.message)

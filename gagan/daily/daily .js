@@ -1,5 +1,5 @@
 function Showpremiumuser(){
-  document.getElementById('rzp-button1').style.visibility="hidden";
+ document.getElementById('rzp-button1').style.visibility="hidden";
   document.getElementById('message').innerHTML="you are premium user"
 }
 function parseJwt (token) {
@@ -48,7 +48,7 @@ async function formsubmit(event){
         
        }
        const token=localStorage.getItem('token')
-       await axios.post("http://localhost:3000/expense/post", expense,{headers:{'Authorization':token}})
+       await axios.post("http://localhost:3000/expense/post",expense,{headers:{'Authorization':token}})
        .then((response) => {
          console.log(response)
    
@@ -93,7 +93,7 @@ async function removeFromScreen(expenseid) {
 async function showUsersOnScreen(expense) {
     try {
       var parentNode =await document.getElementById('listOfUsers');
-      var childNode = await `<li id=${expense.id}>${expense.Expenseamount}-${expense.discription}-${expense.categeory}
+      var childNode = `<li id=${expense.id}>${expense.Expenseamount}-${expense.discription}-${expense.categeory}
              <button id='${expense.id}' onclick=DeleteExp('${expense.id}')>Delete Exp</button></li>`
       parentNode.innerHTML = parentNode.innerHTML + childNode;
   
@@ -128,19 +128,25 @@ rzp1.on('payment.failed',function(response){
 })
 
 }
-function Showleaderbord(){
-  const inputElement=document.createElement('input');
-  inputElement.type="button";
-  inputElement.value="SHOW";
-  inputElement.onclick=async()=>{
-    const token=localStorage.getItem('token')
-    const userLeaderBoard=await axios.get("http://localhost:3000/premium/showfeatures",{headers:{'Authorization':token}})
-    const LeaderBord=document.getElementById('leadboard')
-    LeaderBord.innerHTML +='<h1> Leader Board</h1>'
-    userLeaderBoard.data.forEach((userDetailes)=>{
-      LeaderBord.innerHTML +=`<li>Name-${user.Name} Total Expense-${user.totalExpense }</li>`
-    })
+ function Showleaderbord(){
+  try {
+    const inputElement=document.createElement("input");
+    inputElement.type="button";
+    inputElement.value="Show";
+    inputElement.onclick=async()=>{
+      const token=localStorage.getItem('token')
+      const userLeaderBoard=await axios.get("http://localhost:3000/pre/showfeatures",{headers:{'Authorization':token}})
+      const LeaderBord=document.getElementById('leadboard')
+      LeaderBord.innerHTML =LeaderBord.innerHTML+'<h1> Leader Board</h1>'
+      userLeaderBoard.data.forEach((userDetails)=>{
+        LeaderBord.innerHTML +=`<li>Name-${userDetails.Name} Total Expense-${userDetails.totalExpense }</li>`
+      })
+    }
+    document.getElementById('message').appendChild(inputElement);
+   
+  
+    
+  } catch (error) {
+    console.log(error);
   }
-  document.getElementById('message').appendChild(inputElement);
- 
 }

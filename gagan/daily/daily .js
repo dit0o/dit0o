@@ -150,3 +150,20 @@ rzp1.on('payment.failed',function(response){
     console.log(error);
   }
 }
+async function download(){
+  try {
+    const token=localStorage.getItem('token')
+    await axios.get('http://localhost:3000/expense/download', { headers: {"Authorization" : token} })
+    if(response.status=== 200){
+      var a = document.createElement("a");
+            a.href = response.data.fileURL;
+            a.download = 'myexpense.csv';
+            a.click();
+        } else {
+            throw new Error(response.data.message)
+        }
+    }
+   catch (error) {
+    console.log(error)
+  }
+}

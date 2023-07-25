@@ -2,8 +2,8 @@ async function formsubmit(event){
     try {
       event.preventDefault();
       var login= {
-        Email:document.getElementById('mail').value,
-        Password:document.getElementById('pass').value
+        Email:document.getElementById('floatingInput').value,
+        Password:document.getElementById('floatingPassword').value
       }
       const response= await axios.post("http://localhost:3000/user/login",login)
       
@@ -21,4 +21,7 @@ async function formsubmit(event){
         document.body.innerHTML+= `<div style="color:red;">${error}<div>`    
     }
    
+  }
+  function forgotpassword(){
+    window.location.href ="../forgotpassword/forgotpass.html"
   }

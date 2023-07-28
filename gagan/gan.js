@@ -2,22 +2,23 @@
   try {
     event.preventDefault();
     var user= {
-      Name:document.getElementById('name').value,
-      Email:document.getElementById('mail').value,
-      Password:document.getElementById('pass').value
+      Name:document.getElementById('floatingName').value,
+      Email:document.getElementById('floatingInput').value,
+      PhoneNumber:document.getElementById('floatingTel').value,
+      Password:document.getElementById('floatingPassword').value
     }
-    const response= await axios.post("http://localhost:3000/user/post", user)
+    const response= await axios.post("http://localhost:4000/user/signup", user)
     
-      if(response.status===201){
-        window.location.href="./login/login.html"
-      }
-      else{
-        throw new Error('Failed to login')
-      }
+      .then((response) => {
+        console.log(response.data.message);
+        alert(response.data.message);
+        window.location.href = "./login/login.html"
+    })
     
-    
-  } catch (error) {
-    document.body.innerHTML+= `<div style="color:red;">${error}<div>`    
+  } 
+  catch (err) {
+    console.log(err);
+    document.body.innerHTML+=  err + `<button onclick="window.location.href = ./gg.html">Reload</button>`
   }
  
  

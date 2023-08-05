@@ -16,6 +16,9 @@
             width: 100%;
             position:fixed;
             bottom: 0px;
+            padding: 0%;
+            margin: 0%;
+            vertical-align: middle;
         }
         #send-msg{
             margin:10px;
@@ -28,42 +31,18 @@
             margin-bottom: 20px;
             line-break:anywhere;
         }
-        .msg-left{
-            float: left;
-            background-color: rgb(210,210,210);
-            clear: both;
-            border-radius: 0.5%;
-        }
-        .msg-right{
-            float:right;
-            background-color: rgba(179, 245, 233, 0.87);
-            clear: both;
-            border-radius: 0.5%;
-        }
-        #send-btn{
-            position: right;
-            background-color: transparent;
-            border: 0;
-            /* margin-left: -3.5%; */
-        }
-        input[type="file"] {
-            display: none;
-        }
-        .image-field{
-            height: 20px;
-            width:auto;
-        }
+       
+       
+        
     </style>
     <title>chat App</title>
 </head>
 <body>
     <h1 class="text-center">Chat App</h1>
-   <div id="messages-list">
-        <br>
-    </div>
+   <div id="messages-list"> </div>
     <div id="box11">
-        <form id="input-send" onsubmit='formsubmit(event)'>
-            <input type="text" name="send-msg" id="send-msg" width="50%" autocomplete="off" required>
+        <form id="input-send">
+            <input type="text" name="send-msg" id="send-msg" width="70%" required>
             <input type="submit" value="Send" id="send-btn">
         </form>
     </div>

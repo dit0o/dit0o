@@ -16,9 +16,7 @@
             width: 100%;
             position:fixed;
             bottom: 0px;
-            padding: 0%;
-            margin: 0%;
-            vertical-align: middle;
+            
         }
         #send-msg{
             margin:10px;
@@ -31,6 +29,23 @@
             margin-bottom: 20px;
             line-break:anywhere;
         }
+        .msg-left{
+            float: left;
+            background-color: rgb(210,210,210);
+            clear: both;
+            border-radius: 0.5%;
+        }
+        .msg-right{
+            float:right;
+            background-color: wheat;
+            clear: both;
+            border-radius: 0.5%;
+        }
+        #send-btn{
+            background-color: transparent;
+            border: 0;
+            margin-left: -0.5%;
+        }
        
        
         
@@ -39,10 +54,31 @@
 </head>
 <body>
     <h1 class="text-center">Chat App</h1>
+    <div id="all-groups">
+
+    </div>
+    <input type="button" value="+Create New Group" title="Create Group" id="create-group-btn">
+    <input type="button" value="Join Group" title="Join Group" id="join-group-btn">
+    <input type="button" value="Group Invite Link" title="Group Invite Link" id="invite-btn" hidden>
+    <input type="text" id="invite-link" title="Invite Link" readonly hidden>
+    <div id="create-Group-Div" hidden>
+        <form id="create-Group-Form">
+            <label for="group-name">Enter Group Name</label>
+            <input type="text" name="group-name" title="Enter Group Name" id="new-Group-Name" required>
+            <input type="submit" value="Create Group">
+        </form>
+    </div>
+    <div id="join-group-div" hidden>
+        <form id="join-group-form">
+            <input type="text" id="join-group-input" title="Enter Group Link" required>
+            <input type="submit" value="Join Group">
+        </form>
+    </div>
    <div id="messages-list"> </div>
-    <div id="box11">
+   <br>
+    <div id="box11" hidden>
         <form id="input-send">
-            <input type="text" name="send-msg" id="send-msg" width="70%" required>
+            <input type="text" name="send-msg" id="send-msg" width="50%" required>
             <input type="submit" value="Send" id="send-btn">
         </form>
     </div>

@@ -5,6 +5,7 @@ let totalMsg=null;
 const box11=document.getElementById('box11')
 let activeGroup=null;
 let setIntId=null;
+const inviteBtn=document.getElementById('invite-btn')
 
 
 inputObj.addEventListener('submit',(e)=>{
@@ -23,14 +24,8 @@ inputObj.addEventListener('submit',(e)=>{
 
 const msgUl=document.getElementById('messages-list');
 
-function addNewLineElement(data,Name,id){
+function addNewLineElement(data,Name){
     const li=document.createElement('h4');
-    loginId=localStorage.getItem('userId')
-    if(id==loginId){
-        li.className = 'msg-right';
-    } else {
-        li.className = 'msg-left';
-    }
     li.appendChild(
         document.createTextNode(Name + ' : ' + data.message +' ')
     )
@@ -56,22 +51,46 @@ try {
     console.log(error)
 }
 }
+
 window.addEventListener('DOMContentLoaded', async()=>{
     try{
-        const allM = await axios.get(`http://localhost:4000/user/message`, { headers: {'Authorization': token}} );
-        const arr = allM.data.mesg;
-        totalMsg=arr.length
-        arr.forEach(element => {
-            addNewLineElement(element,element.user.Name);
-        });
-        setInterval(getAllMsg,1000)
+        const allG = await axios.get('http://localhost:4000/user/message/allgroup', { headers: {'Authorization': token}} );
+        const arrG = allG.data.allGroup;
+        const allGDiv = document.getElementById('all-groups');
+        arrG.forEach(ele=>{
+            console.log(ele);
+            const li = document.createElement('input');
+            li.type = 'button';
+            li.value = `${ele.group.gName}`;
+            li.addEventListener('click',async()=>{
+                activeGroup = ele.id;
+                box11.removeAttribute('hidden');
+                inviteBtn.removeAttribute('hidden');
+                msgUl.innerHTML='';
+               clearInterval(setIntId);
+                const allM = await axios.get(`http://localhost:4000/user/message?gId=${ele.id}`, { headers: {'Authorization': token}} );
+                const arr = allM.data.mesg;
+                totalMsg = arr.length;
+                arr.forEach(element => {
+                    addNewLineElement(element, element.user.Name, element.userId);
+                });
+                setIntId = setInterval(getAllMsg, 2000);
+            })
+            allGDiv.appendChild(li);
+        })
+      //  const allM = await axios.get(`http://localhost:4000/user/message`, { headers: {'Authorization': token}} );
+       // const arr = allM.data.mesg;
+        //totalMsg=arr.length
+        //arr.forEach(element => {
+           // addNewLineElement(element,element.user.Name);
+       // });
+       // setInterval(getAllMsg,1000)
     }catch(err){
         console.log(err);
     }
 });
 
 const groupBtn=document.getElementById('create-group-btn')
-const invitBtn=document.getElementById('invite-btn')
 const groupFormDiv=document.getElementById("create-Group-Div")
 const groupForm=document.getElementById("create-Group-Form")
 
@@ -91,3 +110,34 @@ groupForm.addEventListener('submit',(e)=>{
     });
 });
 
+inviteBtn.addEventListener('click',async()=>{
+    const inputLink=document.getElementById('invite-link')
+    inputLink.removeAttribute("hidden")
+    const inviteLink=await axios.get(`http://localhost:4000/user/message/getInvite?gId=${activeGroup}`, { headers: {'Authorization': token}});
+const secretToken=inviteLink.data.secretToken;
+inputLink.value=`${secretToken}`
+})
+const joinGroupBtn = document.getElementById('join-group-btn');
+joinGroupBtn.addEventListener('click',()=>{
+    const joinGroupDiv = document.getElementById('join-group-div');
+    joinGroupDiv.removeAttribute('hidden');
+});
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}
+const joinGroupFrom = document.getElementById('join-group-form');
+joinGroupFrom.addEventListener('submit',async(e)=>{
+    e.preventDefault();
+    const tokenInput = document.getElementById('join-group-input');
+    const decodeToken = parseJwt(tokenInput.value);
+    const id = +decodeToken.id;
+    console.log('joinGroupForm',id);
+    const joinRes = await axios.get(`http:localhost:4000/user/message/joinGroup?gId=${id}`, { headers: {'Authorization': token}});
+    console.log(joinRes);
+});
